@@ -1,58 +1,58 @@
 # Strong Play Integrity
 
-Два модуля для одного результата: BASIC, DEVICE и STRONG.
+Two modules for the same result: BASIC, DEVICE, and STRONG.
 
-| Файл | Куда ставить |
+| File | Installation Target |
 | --- | --- |
-| [magisk-strong.zip](magisk-strong.zip) | Magisk 20.4 и новее, в том числе Magisk Alpha |
-| [ksu-strong.zip](ksu-strong.zip) | KernelSU, только через приложение KernelSU |
+| [magisk-strong.zip](magisk-strong.zip) | Magisk 20.4 and newer, including Magisk Alpha |
+| [ksu-strong.zip](ksu-strong.zip) | KernelSU, via the KernelSU app only |
 
-Исходники лежат в папках `magisk/` и `kernelsu/`. Текст модулей на английском.
+The source code is located in the `magisk/` and `kernelsu/` folders. The module texts are in English.
 
-Оба модуля ставят или включают:
+Both modules install or enable:
 
-- [Play Integrity Fork](https://github.com/osm0sis/PlayIntegrityFork) от osm0sis
-- [Tricky Store](https://github.com/5ec1cff/TrickyStore)
-- [Zygisk Assistant](https://github.com/snake-4/Zygisk-Assistant)
+* [Play Integrity Fork](https://github.com/osm0sis/PlayIntegrityFork) by osm0sis
+* [Tricky Store](https://github.com/5ec1cff/TrickyStore)
+* [Zygisk Assistant](https://github.com/snake-4/Zygisk-Assistant)
 
-Конфликтующие модули выключаются, но не удаляются
+Conflicting modules are disabled but not removed.
 
-`spoofProvider` остаётся 0. Иначе аттестация обходит keybox.
+`spoofProvider` remains set to 0. Otherwise, the attestation will bypass the keybox.
 
 ## Magisk
 
-Нужен [Magisk](https://github.com/topjohnwu/Magisk) 20.4 или новее. Используется встроенный Zygisk. ZygiskNext, ReZygisk и NeoZygisk, если они стоят, выключаются.
+Requires [Magisk](https://github.com/topjohnwu/Magisk) version 20.4 or newer. Uses the built-in Zygisk. ZygiskNext, ReZygisk, and NeoZygisk (if installed) are disabled.
 
-1. Скачайте `magisk-strong.zip`.
-2. Откройте Magisk, вкладка «Модули», «Установить из хранилища».
-3. Выберите `magisk-strong.zip`.
-4. Нажать Action.
-5. Если модуль поставил новые пакеты, перезагрузите телефон если он ен перезагрузился автоматически. Если Play Integrity Fork, Tricky Store и Zygisk Assistant уже стояли, перезагрузка не нужна.
+1. Download `magisk-strong.zip`.
+2. Open Magisk, go to the "Modules" tab, and select "Install from storage".
+3. Choose `magisk-strong.zip`.
+4. Tap "Action".
+5. If the module installs new packages, reboot the phone if it doesn't restart automatically. If Play Integrity Fork, Tricky Store, and Zygisk Assistant were already installed, a reboot is not required.
 
-Что делает установка:
+What the installation does:
 
-- включает Zygisk;
-- оставляет Enforce DenyList выключенным, иначе Play Integrity Fork не внедрится в GMS;
-- добавляет Play Store, GMS, GSF, Gmail, Key Attestation, Play Integrity API Checker и Advanced Root Checker в список скрытия.
+* Enables Zygisk;
+* Keeps Enforce DenyList disabled (otherwise, Play Integrity Fork won't inject into GMS);
+* Adds Play Store, GMS, GSF, Gmail, Key Attestation, Play Integrity API Checker, and Advanced Root Checker to the hiding list.
 
 ## KernelSU
 
-Нужен [KernelSU](https://github.com/tiann/KernelSU). Recovery этот архив не прошивает. На телефон с Magisk и без `ksud` модуль ставить нельзя: скрипт остановится и ничего не изменит.
+Requires [KernelSU](https://github.com/tiann/KernelSU). This archive cannot be flashed via recovery. Do not install the module on a phone with Magisk and without `ksud`: the script will stop and make no changes.
 
-KernelSU не имеет встроенного Zygisk, поэтому модуль ставит [ZygiskNext](https://github.com/Dr-TSNG/ZygiskNext). ReZygisk и NeoZygisk выключаются.
+KernelSU doesn't have built-in Zygisk, so the module installs [ZygiskNext](https://github.com/Dr-TSNG/ZygiskNext). ReZygisk and NeoZygisk are disabled.
 
-1. Скачайте `ksu-strong.zip`.
-2. Откройте приложение KernelSU, вкладка модулей, кнопка «+», выберите архив.
-3. Дождитесь окончания установки и перезагрузите телефон.
-4. После перезагрузки у модуля Strong Play Integrity появляется кнопка Action. Рядом открывается страница модуля, на ней кнопка Start. Обе запускают одну и ту же настройку.
+1. Download `ksu-strong.zip`.
+2. Open the KernelSU app, go to the modules tab, tap the "+" button, and select the archive.
+3. Wait for the installation to finish, then reboot the phone.
+4. After rebooting, the Strong Play Integrity module will show an "Action" button. Next to it, there's a module page with a "Start" button. Both trigger the same setup.
 
-До перезагрузки кнопки нет. Свежая установка лежит в `/data/adb/modules_update/ksustrong`, а приложение смотрит только `/data/adb/modules`. Перезагрузка переносит туда `action.sh` и страницу `webroot`.
+The "Action" button isn't available before reboot. A fresh installation is stored in `/data/adb/modules_update/ksustrong`, while the app only reads `/data/adb/modules`. Rebooting moves `action.sh` and the `webroot` page there.
 
-Скрытие root на KernelSU делает Zygisk Assistant вместе с Umount modules для нужного приложения. Enforce DenyList у ZygiskNext остаётся выключенным.
+Root hiding on KernelSU is handled by Zygisk Assistant together with Umount modules for the required app. Enforce DenyList in ZygiskNext remains disabled.
 
-## Автор https://t.me/Premium_SMS_Messenger
+## Author: https://t.me/Premium_SMS_Messenger
 
-**If this work was useful to you, you can thank me with the help of USDT (TRC-20).:**
+**If this work was useful to you, you can support the developer with USDT (TRC-20):**
 
 ```
 THSLZyomC5h7kmQSNPqBSCR6eD1YTD1RXr
