@@ -1,0 +1,6 @@
+id=ksustrong
+name=Strong Play Integrity
+version=1.0
+versionCode=1
+author=local
+description=Tap Action, or open the page and press Start. Installs ZygiskNext, Play Integrity Fork, Tricky Store, and Zygisk Assistant. Put your own keybox.xml in this zip or in /sdcard/Download/keybox.xml.

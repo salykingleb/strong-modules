@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strong Play Integrity</title>
+<style>
+  body { margin: 0; font-family: sans-serif; background: #121212; color: #f2f2f2; }
+  main { padding: 20px; max-width: 40rem; }
+  h1 { font-size: 1.4rem; margin: 0 0 8px; }
+  p { line-height: 1.4; color: #d0d0d0; }
+  button { font-size: 1.15rem; padding: 14px 18px; width: 100%; border: 0; border-radius: 10px; background: #1a73e8; color: white; }
+  button:disabled { background: #555; }
+  pre { white-space: pre-wrap; word-break: break-word; background: #1c1c1c; padding: 12px; border-radius: 10px; min-height: 8rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Strong Play Integrity</h1>
+  <p>Put your own keybox.xml in this module zip before flashing, or copy it to /sdcard/Download/keybox.xml. Then press Start. The phone reboots if a new module had to be installed.</p>
+  <p><button id="start" type="button">Start</button></p>
+  <pre id="log">Waiting.</pre>
+</main>
+<script type="module">
+const logEl = document.getElementById("log");
+const button = document.getElementById("start");
+
+function show(text) {
+  logEl.textContent = text;
+}
+
+button.addEventListener("click", async () => {
+  button.disabled = true;
+  show("Running...\n");
+  try {
+    const mod = await import("kernelsu");
+    const cmd = "sh /data/adb/modules/ksustrong/setup.sh";
+    let result = mod.exec(cmd);
+    if (result && typeof result.then === "function") result = await result;
+    const out = (result && (result.stdout || result.stderr)) ? `${result.stdout || ""}${result.stderr || ""}` : "No output.";
+    show(out);
+  } catch (err) {
+    show("This page could not run the setup.\nUse the Action button on the module card instead.\n" + err);
+  }
+  button.disabled = false;
+});
+</script>
+</body>
+</html>
